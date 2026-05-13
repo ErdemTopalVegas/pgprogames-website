@@ -21,6 +21,20 @@ const logoUrl = "/logo.png";
 
 export default function Website() {
   const [mobileMenu, setMobileMenu] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    type: "Allgemeine Anfrage",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   React.useEffect(() => {
     document.title = "Spielhalle Vegas | PG Pro Games GmbH";
@@ -37,11 +51,11 @@ export default function Website() {
 
     setMeta(
       "description",
-      "Spielhalle Vegas von PG Pro Games GmbH: Moderne Spielhallen in Baumholder und Montabaur mit gepflegter Atmosphäre, langen Öffnungszeiten und verantwortungsvollem Spiel."
+      "Spielhalle Vegas von PG Pro Games GmbH: Moderne Spielhallen in Baumholder und Montabaur sowie professionelle Automatenaufstellung für Gastronomien in Rheinland-Pfalz, Hessen und Frankfurt."
     );
     setMeta(
       "keywords",
-      "Spielhalle Vegas, PG Pro Games GmbH, Spielhalle Baumholder, Spielhalle Montabaur, Spielothek Baumholder, Spielothek Montabaur, Automatenaufstellung Gastronomie"
+      "Spielhalle Vegas, PG Pro Games GmbH, Spielhalle Baumholder, Spielhalle Montabaur, Spielothek Baumholder, Spielothek Montabaur, Automatenaufstellung Gastronomie, Automatenaufsteller Hessen, Automatenaufsteller Frankfurt, Automatenaufsteller Rheinland-Pfalz, Automatenaufsteller Rheinland Pfalz, Geldspielgeräte Gastronomie, Automatenaufstellung Bars, Automatenaufstellung Kneipen"
     );
     setMeta("robots", "index, follow");
 
@@ -159,6 +173,10 @@ export default function Website() {
 
         <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
           <motion.div
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
@@ -197,6 +215,75 @@ export default function Website() {
                 <p className="mt-3 text-sm leading-7 text-zinc-400">{item.text}</p>
               </div>
             ))}
+          </div>
+
+            <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
+              <h3 className="text-2xl font-black">Kontaktformular</h3>
+              <p className="mt-3 text-zinc-400">
+                Senden Sie uns Ihre Anfrage direkt über das Formular.
+              </p>
+
+              <form
+                action="https://formsubmit.co/info@pgprogames.de"
+                method="POST"
+                className="mt-8 space-y-5"
+              >
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_subject" value="Neue Anfrage über pgprogames.de" />
+
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
+                  required
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="E-Mail"
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
+                  required
+                />
+
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Telefonnummer"
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
+                />
+
+                <select
+                  name="type"
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-white/40"
+                >
+                  <option>Allgemeine Anfrage</option>
+                  <option>Automatenaufstellung Gastronomie</option>
+                  <option>Standort Anfrage</option>
+                </select>
+
+                <textarea
+                  name="message"
+                  rows="5"
+                  placeholder="Ihre Nachricht"
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
+                  required
+                />
+
+                <button
+                  type="submit"
+                  className="w-full rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 transition hover:scale-[1.02] hover:from-white hover:to-zinc-300"
+                >
+                  Anfrage senden
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -325,9 +412,12 @@ export default function Website() {
         </div>
       </section>
 
-      <section id="kontakt" className="bg-[#080808] px-6 py-24">
-        <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 text-center shadow-2xl md:p-12">
-          <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
+      <section id="kontakt" className="relative overflow-hidden bg-[#080808] px-6 py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_35%)]" />
+        <div className="relative mx-auto max-w-6xl rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-2xl backdrop-blur md:p-12">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+          <div>
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
             <Mail className="text-white" size={30} />
           </div>
           <h2 className="text-4xl font-black tracking-tight">Kontakt</h2>
