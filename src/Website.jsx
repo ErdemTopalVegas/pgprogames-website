@@ -21,20 +21,6 @@ const logoUrl = "/logo.png";
 
 export default function Website() {
   const [mobileMenu, setMobileMenu] = React.useState(false);
-  const [formData, setFormData] = React.useState({
-    name: "",
-    email: "",
-    phone: "",
-    type: "Allgemeine Anfrage",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   React.useEffect(() => {
     document.title = "Spielhalle Vegas | PG Pro Games GmbH";
@@ -76,6 +62,7 @@ export default function Website() {
     favicon.setAttribute("href", "/logo.png");
     favicon.setAttribute("type", "image/png");
   }, []);
+
   const locations = [
     {
       city: "Baumholder",
@@ -117,6 +104,13 @@ export default function Website() {
     "Einhaltung gesetzlicher Vorgaben und Kontrollpflichten",
   ];
 
+  const fadeUp = {
+    initial: { opacity: 0, y: 28 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.7 },
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-xl">
@@ -132,6 +126,7 @@ export default function Website() {
           <button
             onClick={() => setMobileMenu(!mobileMenu)}
             className="flex items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white lg:hidden"
+            aria-label="Menü öffnen"
           >
             <div className="space-y-1">
               <div className="h-0.5 w-5 bg-white" />
@@ -153,7 +148,8 @@ export default function Website() {
             Kontakt
           </a>
         </div>
-      {mobileMenu && (
+
+        {mobileMenu && (
           <div className="border-t border-white/10 bg-black/95 px-6 py-5 lg:hidden">
             <div className="flex flex-col gap-4 text-sm font-bold uppercase tracking-wide text-zinc-300">
               <a href="#home" onClick={() => setMobileMenu(false)}>Home</a>
@@ -172,16 +168,7 @@ export default function Website() {
         <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:54px_54px]" />
 
         <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
-          <motion.div
-            whileInView={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 30 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto max-w-5xl text-center"
-          >
+          <motion.div {...fadeUp} className="mx-auto max-w-5xl text-center">
             <img src={logoUrl} alt="PG Pro Games GmbH Logo" className="mx-auto mb-8 h-32 w-32 rounded-3xl object-contain shadow-2xl shadow-white/10" />
             <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/40 px-5 py-2 text-sm font-semibold text-zinc-100 backdrop-blur">
               <Sparkles size={16} /> Willkommen bei PG Pro Games GmbH
@@ -196,10 +183,10 @@ export default function Website() {
             </p>
 
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <a href="#standorte" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 hover:from-white hover:to-zinc-300">
+              <a href="#standorte" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 transition hover:scale-[1.02] hover:from-white hover:to-zinc-300">
                 Unsere Standorte <MapPin size={18} />
               </a>
-              <a href="#ueber-uns" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-black/35 px-8 py-4 text-sm font-black uppercase tracking-wide text-white backdrop-blur hover:bg-white/10">
+              <a href="#ueber-uns" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-black/35 px-8 py-4 text-sm font-black uppercase tracking-wide text-white backdrop-blur transition hover:scale-[1.02] hover:bg-white/10">
                 Mehr erfahren <ArrowRight size={18} />
               </a>
             </div>
@@ -207,27 +194,190 @@ export default function Website() {
 
           <div className="mt-16 grid overflow-hidden rounded-[2rem] border border-white/15 bg-black/45 shadow-2xl backdrop-blur md:grid-cols-4">
             {highlights.map((item, index) => (
-              <div key={item.title} className={`p-8 text-center ${index !== 0 ? "border-t border-white/10 md:border-l md:border-t-0" : ""}`}>
+              <motion.div
+                key={item.title}
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                className={`p-8 text-center transition hover:bg-white/[0.04] ${index !== 0 ? "border-t border-white/10 md:border-l md:border-t-0" : ""}`}
+              >
                 <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
                   {item.icon}
                 </div>
                 <h3 className="text-lg font-black uppercase tracking-wide">{item.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-zinc-400">{item.text}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-            <div className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
+      <section id="ueber-uns" className="bg-[#080808] px-6 py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+          <motion.div {...fadeUp} className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/10 to-zinc-900/50 p-8 shadow-2xl">
+            <div className="flex min-h-[360px] flex-col items-center justify-center rounded-[1.5rem] border border-white/10 bg-black/50 p-8 text-center">
+              <img src={logoUrl} alt="PG Pro Games GmbH Logo" className="h-44 w-44 rounded-3xl object-contain" />
+              <div className="mt-6 text-3xl font-black tracking-[0.22em]">PG PRO GAMES</div>
+              <div className="mt-2 text-lg tracking-[0.28em] text-zinc-500">GmbH</div>
+            </div>
+          </motion.div>
+
+          <motion.div {...fadeUp}>
+            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Über uns</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
+              Moderne Spielunterhaltung mit seriösem Anspruch.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-zinc-300">
+              Die PG Pro Games GmbH betreibt unter dem Namen Spielhalle Vegas moderne Spielhallen in Baumholder und Montabaur. Unser Ziel ist eine gepflegte, angenehme und verantwortungsvolle Atmosphäre für erwachsene Gäste.
+            </p>
+            <p className="mt-5 text-lg leading-8 text-zinc-300">
+              Neben unseren eigenen Standorten sind wir außerdem Ansprechpartner für Gastronomiebetriebe, die an einer professionellen Automatenaufstellung interessiert sind.
+            </p>
+            <a href="#standorte" className="mt-8 inline-flex items-center gap-2 rounded-xl border border-white/40 px-7 py-4 text-sm font-black uppercase tracking-wide text-white transition hover:bg-white hover:text-black">
+              Standorte ansehen <ArrowRight size={18} />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="standorte" className="bg-[#0f0f0f] px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp} className="max-w-3xl">
+            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Standorte</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Spielhalle Baumholder und Spielhalle Montabaur.</h2>
+            <p className="mt-5 text-lg leading-8 text-zinc-300">
+              Spielhalle Vegas ist Ihr moderner Spielhallenbetrieb in Baumholder und Montabaur.
+            </p>
+          </motion.div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {locations.map((location, index) => (
+              <motion.div
+                key={location.city}
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-2xl transition hover:-translate-y-1 hover:border-white/30"
+              >
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
+                  <MapPin className="text-white" size={30} />
+                </div>
+                <h3 className="text-3xl font-black">Spielhalle Vegas {location.city}</h3>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-flex rounded-xl border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-black"
+                >
+                  Route öffnen
+                </a>
+                <p className="mt-4 text-lg leading-8 text-zinc-300">{location.address}</p>
+                <div className="mt-7 rounded-2xl border border-white/10 bg-black/35 p-6 leading-8">
+                  <p className="mb-2 flex items-center gap-2 font-black text-zinc-200"><Clock size={18} /> Öffnungszeiten</p>
+                  <p className="text-zinc-300">Montag–Samstag: 08:00–02:00 Uhr</p>
+                  <p className="text-zinc-300">Sonn- und Feiertage: 11:00–02:00 Uhr</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="gastronomie" className="bg-[#0a0a0a] px-6 py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
+          <motion.div {...fadeUp}>
+            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Für Gastronomiepartner</p>
+            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
+              Automatenaufstellung für Gastronomien in Rheinland-Pfalz, Hessen und Frankfurt.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-zinc-300">
+              Sie betreiben eine Bar, Kneipe oder Gastronomie und möchten Ihren Gästen ein zusätzliches Entertainment-Angebot bieten? PG Pro Games GmbH ist Ihr zuverlässiger Ansprechpartner für professionelle Automatenaufstellung.
+            </p>
+            <p className="mt-5 text-lg leading-8 text-zinc-300">
+              Wir sind Ansprechpartner für Automatenaufstellung in Rheinland-Pfalz, Hessen und dem Raum Frankfurt.
+            </p>
+            <a href="#kontakt" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 transition hover:scale-[1.02] hover:from-white hover:to-zinc-300">
+              Kooperation anfragen <Handshake size={18} />
+            </a>
+          </motion.div>
+
+          <motion.div {...fadeUp} className="rounded-[2rem] border border-white/15 bg-black/40 p-8 shadow-2xl">
+            <div className="space-y-4">
+              {[
+                "Aufstellung in Bars, Kneipen und Gastronomiebetrieben",
+                "Automatenaufsteller für Hessen, Frankfurt und Rheinland-Pfalz",
+                "Persönliche Betreuung und klare Absprachen",
+                "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
+                "Direkter Ansprechpartner: Erdem Topal",
+              ].map((item) => (
+                <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:bg-white/[0.08]">
+                  <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
+                  <span className="leading-7 text-zinc-300">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="spielerschutz" className="bg-[#111111] px-6 py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+          <motion.div {...fadeUp} className="rounded-[2rem] border border-white/15 bg-zinc-900/60 p-8 shadow-2xl">
+            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white/10">
+              <HeartHandshake className="text-white" size={38} />
+            </div>
+            <h2 className="text-3xl font-black">Spielerschutz</h2>
+            <p className="mt-4 leading-8 text-zinc-300">
+              Verantwortungsvolles Spielen steht bei uns an erster Stelle.
+            </p>
+            <a href="#kontakt" className="mt-7 inline-flex rounded-xl border border-white/40 px-6 py-3 text-sm font-black uppercase tracking-wide text-white transition hover:bg-white hover:text-black">
+              Kontakt aufnehmen
+            </a>
+          </motion.div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {protection.map((item, index) => (
+              <motion.div
+                key={item}
+                {...fadeUp}
+                transition={{ duration: 0.55, delay: index * 0.06 }}
+                className="rounded-2xl border border-white/10 bg-black/30 p-6 transition hover:bg-white/[0.05]"
+              >
+                <CheckCircle className="mb-4 text-white" size={24} />
+                <p className="leading-7 text-zinc-300">{item}</p>
+              </motion.div>
+            ))}
+            <motion.div {...fadeUp} className="rounded-2xl border border-white/10 bg-white/10 p-6 md:col-span-2">
+              <p className="font-bold text-zinc-200">Hinweis: Glücksspiel kann süchtig machen. Teilnahme nur ab 18 Jahren.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kontakt" className="relative overflow-hidden bg-[#080808] px-6 py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_35%)]" />
+        <div className="relative mx-auto max-w-6xl rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-2xl backdrop-blur md:p-12">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+            <motion.div {...fadeUp}>
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
+                <Mail className="text-white" size={30} />
+              </div>
+              <h2 className="text-4xl font-black tracking-tight">Kontakt</h2>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+                Sie haben Fragen zu unseren Spielhallen, Standorten, Öffnungszeiten oder zur Automatenaufstellung? Kontaktieren Sie uns gerne.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 text-zinc-400">
+                <span className="inline-flex items-center gap-2"><UserCheck size={17} /> Erdem Topal</span>
+                <span className="inline-flex items-center gap-2"><Mail size={17} /> et@pgprogames.de</span>
+                <span className="inline-flex items-center gap-2"><Phone size={17} /> 017622398057</span>
+              </div>
+            </motion.div>
+
+            <motion.div {...fadeUp} className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
               <h3 className="text-2xl font-black">Kontaktformular</h3>
               <p className="mt-3 text-zinc-400">
                 Senden Sie uns Ihre Anfrage direkt über das Formular.
               </p>
 
-              <form
-                action="https://formsubmit.co/info@pgprogames.de"
-                method="POST"
-                className="mt-8 space-y-5"
-              >
+              <form action="https://formsubmit.co/info@pgprogames.de" method="POST" className="mt-8 space-y-5">
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_subject" value="Neue Anfrage über pgprogames.de" />
 
@@ -235,7 +385,6 @@ export default function Website() {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  onChange={handleChange}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
                   required
                 />
@@ -244,7 +393,6 @@ export default function Website() {
                   type="email"
                   name="email"
                   placeholder="E-Mail"
-                  onChange={handleChange}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
                   required
                 />
@@ -253,14 +401,12 @@ export default function Website() {
                   type="text"
                   name="phone"
                   placeholder="Telefonnummer"
-                  onChange={handleChange}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
                 />
 
                 <select
                   name="type"
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none focus:border-white/40"
+                  className="w-full rounded-xl border border-white/10 bg-[#111111] px-5 py-4 text-white outline-none focus:border-white/40"
                 >
                   <option>Allgemeine Anfrage</option>
                   <option>Automatenaufstellung Gastronomie</option>
@@ -271,7 +417,6 @@ export default function Website() {
                   name="message"
                   rows="5"
                   placeholder="Ihre Nachricht"
-                  onChange={handleChange}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
                   required
                 />
@@ -283,156 +428,7 @@ export default function Website() {
                   Anfrage senden
                 </button>
               </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="ueber-uns" className="bg-[#080808] px-6 py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/10 to-zinc-900/50 p-8 shadow-2xl">
-            <div className="flex min-h-[360px] flex-col items-center justify-center rounded-[1.5rem] border border-white/10 bg-black/50 p-8 text-center">
-              <img src={logoUrl} alt="PG Pro Games GmbH Logo" className="h-44 w-44 rounded-3xl object-contain" />
-              <div className="mt-6 text-3xl font-black tracking-[0.22em]">PG PRO GAMES</div>
-              <div className="mt-2 text-lg tracking-[0.28em] text-zinc-500">GmbH</div>
-            </div>
-          </div>
-
-          <div>
-            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Über uns</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Moderne Spielunterhaltung mit seriösem Anspruch.
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-300">
-              Die PG Pro Games GmbH betreibt unter dem Namen Spielhalle Vegas moderne Spielhallen in Baumholder und Montabaur. Unser Ziel ist eine gepflegte, angenehme und verantwortungsvolle Atmosphäre für erwachsene Gäste.
-            </p>
-            <p className="mt-5 text-lg leading-8 text-zinc-300">
-              Neben unseren eigenen Standorten sind wir außerdem Ansprechpartner für Gastronomiebetriebe, die an einer professionellen Automatenaufstellung interessiert sind.
-            </p>
-            <a href="#standorte" className="mt-8 inline-flex items-center gap-2 rounded-xl border border-white/40 px-7 py-4 text-sm font-black uppercase tracking-wide text-white hover:bg-white hover:text-black">
-              Standorte ansehen <ArrowRight size={18} />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section id="standorte" className="bg-[#0f0f0f] px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-3xl">
-            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Standorte</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Besuchen Sie Spielhalle Vegas in Ihrer Nähe.</h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {locations.map((location) => (
-              <div key={location.city} className="rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-2xl">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
-                  <MapPin className="text-white" size={30} />
-                </div>
-                <h3 className="text-3xl font-black">Spielhalle Vegas {location.city}</h3>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-4 inline-flex rounded-xl border border-white/15 px-5 py-3 text-sm font-bold text-white hover:bg-white hover:text-black"
-                >
-                  Route öffnen
-                </a>
-                <p className="mt-4 text-lg leading-8 text-zinc-300">{location.address}</p>
-                <div className="mt-7 rounded-2xl border border-white/10 bg-black/35 p-6 leading-8">
-                  <p className="mb-2 flex items-center gap-2 font-black text-zinc-200"><Clock size={18} /> Öffnungszeiten</p>
-                  <p className="text-zinc-300">Montag–Samstag: 08:00–02:00 Uhr</p>
-                  <p className="text-zinc-300">Sonn- und Feiertage: 11:00–02:00 Uhr</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="gastronomie" className="bg-[#0a0a0a] px-6 py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Für Gastronomiepartner</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Automatenaufstellung für Gastronomien.
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-zinc-300">
-              Sie betreiben eine Bar, Kneipe oder Gastronomie und möchten Ihren Gästen ein zusätzliches Entertainment-Angebot bieten? PG Pro Games GmbH ist Ihr zuverlässiger Ansprechpartner für professionelle Automatenaufstellung.
-            </p>
-            <a href="#kontakt" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 hover:from-white hover:to-zinc-300">
-              Kooperation anfragen <Handshake size={18} />
-            </a>
-          </div>
-
-          <div className="rounded-[2rem] border border-white/15 bg-black/40 p-8 shadow-2xl">
-            <div className="space-y-4">
-              {[
-                "Aufstellung in Bars, Kneipen und Gastronomiebetrieben",
-                "Persönliche Betreuung und klare Absprachen",
-                "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
-                "Direkter Ansprechpartner: Erdem Topal",
-              ].map((item) => (
-                <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                  <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
-                  <span className="leading-7 text-zinc-300">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="spielerschutz" className="bg-[#111111] px-6 py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div className="rounded-[2rem] border border-white/15 bg-zinc-900/60 p-8 shadow-2xl">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-white/10">
-              <HeartHandshake className="text-white" size={38} />
-            </div>
-            <h2 className="text-3xl font-black">Spielerschutz</h2>
-            <p className="mt-4 leading-8 text-zinc-300">
-              Verantwortungsvolles Spielen steht bei uns an erster Stelle.
-            </p>
-            <a href="#kontakt" className="mt-7 inline-flex rounded-xl border border-white/40 px-6 py-3 text-sm font-black uppercase tracking-wide text-white hover:bg-white hover:text-black">
-              Kontakt aufnehmen
-            </a>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {protection.map((item) => (
-              <div key={item} className="rounded-2xl border border-white/10 bg-black/30 p-6">
-                <CheckCircle className="mb-4 text-white" size={24} />
-                <p className="leading-7 text-zinc-300">{item}</p>
-              </div>
-            ))}
-            <div className="rounded-2xl border border-white/10 bg-white/10 p-6 md:col-span-2">
-              <p className="font-bold text-zinc-200">Hinweis: Glücksspiel kann süchtig machen. Teilnahme nur ab 18 Jahren.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="kontakt" className="relative overflow-hidden bg-[#080808] px-6 py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_35%)]" />
-        <div className="relative mx-auto max-w-6xl rounded-[2rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-8 shadow-2xl backdrop-blur md:p-12">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          <div>
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10">
-            <Mail className="text-white" size={30} />
-          </div>
-          <h2 className="text-4xl font-black tracking-tight">Kontakt</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
-            Sie haben Fragen zu unseren Spielhallen, Standorten, Öffnungszeiten oder zur Automatenaufstellung? Kontaktieren Sie uns gerne.
-          </p>
-          <div className="mt-9 flex flex-col items-center gap-4">
-            <a href="mailto:info@pgprogames.de" className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 hover:from-white hover:to-zinc-300">
-              info@pgprogames.de <ArrowRight size={18} />
-            </a>
-            <div className="flex flex-col gap-2 text-zinc-400 sm:flex-row sm:items-center sm:gap-6">
-              <span className="inline-flex items-center justify-center gap-2"><UserCheck size={17} /> Erdem Topal</span>
-              <span className="inline-flex items-center justify-center gap-2"><Mail size={17} /> et@pgprogames.de</span>
-              <span className="inline-flex items-center justify-center gap-2"><Phone size={17} /> 017622398057</span>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -460,7 +456,7 @@ export default function Website() {
             <p className="mt-6">Beim Besuch dieser Website können durch den Hostinganbieter automatisch technische Informationen wie Browsertyp, Betriebssystem, Uhrzeit des Zugriffs, Referrer-URL oder IP-Adresse in sogenannten Server-Logfiles verarbeitet werden. Diese Verarbeitung dient der technischen Sicherheit und Stabilität der Website.</p>
             <p className="mt-6">Diese Website wird bei einem externen Hostinganbieter betrieben. Dabei können personenbezogene Daten auf Servern des Hostinganbieters verarbeitet werden.</p>
             <p className="mt-6">Die Datenübertragung dieser Website erfolgt verschlüsselt über HTTPS.</p>
-            <p className="mt-6">Wenn Sie uns per E-Mail kontaktieren, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre ausdrückliche Zustimmung.</p>
+            <p className="mt-6">Wenn Sie uns per E-Mail kontaktieren oder das Kontaktformular nutzen, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre ausdrückliche Zustimmung.</p>
             <p className="mt-6">Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten sowie auf Berichtigung, Löschung, Einschränkung der Verarbeitung oder Widerspruch gegen die Verarbeitung.</p>
             <p className="mt-6">Außerdem besteht ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde.</p>
             <p className="mt-6">Für externe Links zu fremden Inhalten übernehmen wir trotz sorgfältiger Kontrolle keine Haftung.</p>
