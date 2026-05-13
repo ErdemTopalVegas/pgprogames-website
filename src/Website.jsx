@@ -211,7 +211,7 @@ export default function Website() {
                 "Aufstellung in Bars, Kneipen und Gastronomiebetrieben",
                 "Persönliche Betreuung und klare Absprachen",
                 "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
-                "Direkter Ansprechpartner: Erdem Topal",
+                "Direkter Ansprechpartner 24/7",
               ].map((item) => (
                 <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                   <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
