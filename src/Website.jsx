@@ -20,6 +20,48 @@ import {
 const logoUrl = "/logo.png";
 
 export default function Website() {
+  const [mobileMenu, setMobileMenu] = React.useState(false);
+
+  React.useEffect(() => {
+    document.title = "Spielhalle Vegas | PG Pro Games GmbH";
+
+    const setMeta = (name, content) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("name", name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
+    setMeta(
+      "description",
+      "Spielhalle Vegas von PG Pro Games GmbH: Moderne Spielhallen in Baumholder und Montabaur mit gepflegter Atmosphäre, langen Öffnungszeiten und verantwortungsvollem Spiel."
+    );
+    setMeta(
+      "keywords",
+      "Spielhalle Vegas, PG Pro Games GmbH, Spielhalle Baumholder, Spielhalle Montabaur, Spielothek Baumholder, Spielothek Montabaur, Automatenaufstellung Gastronomie"
+    );
+    setMeta("robots", "index, follow");
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://pgprogames.de/");
+
+    let favicon = document.querySelector('link[rel="icon"]');
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.setAttribute("rel", "icon");
+      document.head.appendChild(favicon);
+    }
+    favicon.setAttribute("href", "/logo.png");
+    favicon.setAttribute("type", "image/png");
+  }, []);
   const locations = [
     {
       city: "Baumholder",
@@ -73,6 +115,17 @@ export default function Website() {
             </div>
           </a>
 
+          <button
+            onClick={() => setMobileMenu(!mobileMenu)}
+            className="flex items-center justify-center rounded-xl border border-white/15 bg-white/5 p-3 text-white lg:hidden"
+          >
+            <div className="space-y-1">
+              <div className="h-0.5 w-5 bg-white" />
+              <div className="h-0.5 w-5 bg-white" />
+              <div className="h-0.5 w-5 bg-white" />
+            </div>
+          </button>
+
           <nav className="hidden items-center gap-7 text-xs font-bold uppercase tracking-wide text-zinc-300 lg:flex">
             <a href="#home" className="text-white">Home</a>
             <a href="#ueber-uns" className="hover:text-white">Über uns</a>
@@ -86,6 +139,18 @@ export default function Website() {
             Kontakt
           </a>
         </div>
+      {mobileMenu && (
+          <div className="border-t border-white/10 bg-black/95 px-6 py-5 lg:hidden">
+            <div className="flex flex-col gap-4 text-sm font-bold uppercase tracking-wide text-zinc-300">
+              <a href="#home" onClick={() => setMobileMenu(false)}>Home</a>
+              <a href="#ueber-uns" onClick={() => setMobileMenu(false)}>Über uns</a>
+              <a href="#gastronomie" onClick={() => setMobileMenu(false)}>Gastronomie</a>
+              <a href="#spielerschutz" onClick={() => setMobileMenu(false)}>Spielerschutz</a>
+              <a href="#standorte" onClick={() => setMobileMenu(false)}>Standorte</a>
+              <a href="#kontakt" onClick={() => setMobileMenu(false)}>Kontakt</a>
+            </div>
+          </div>
+        )}
       </header>
 
       <section id="home" className="relative overflow-hidden border-b border-white/10">
@@ -178,6 +243,14 @@ export default function Website() {
                   <MapPin className="text-white" size={30} />
                 </div>
                 <h3 className="text-3xl font-black">Spielhalle Vegas {location.city}</h3>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-flex rounded-xl border border-white/15 px-5 py-3 text-sm font-bold text-white hover:bg-white hover:text-black"
+                >
+                  Route öffnen
+                </a>
                 <p className="mt-4 text-lg leading-8 text-zinc-300">{location.address}</p>
                 <div className="mt-7 rounded-2xl border border-white/10 bg-black/35 p-6 leading-8">
                   <p className="mb-2 flex items-center gap-2 font-black text-zinc-200"><Clock size={18} /> Öffnungszeiten</p>
@@ -211,7 +284,7 @@ export default function Website() {
                 "Aufstellung in Bars, Kneipen und Gastronomiebetrieben",
                 "Persönliche Betreuung und klare Absprachen",
                 "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
-                "Direkter Ansprechpartner 24/7",
+                "Direkter Ansprechpartner: Erdem Topal",
               ].map((item) => (
                 <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                   <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
