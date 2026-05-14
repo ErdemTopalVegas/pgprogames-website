@@ -21,6 +21,7 @@ const logoUrl = "/logo.png";
 
 export default function Website() {
   const [mobileMenu, setMobileMenu] = React.useState(false);
+  
 
   React.useEffect(() => {
     document.title = "Spielhalle Vegas | PG Pro Games GmbH";
@@ -286,13 +287,13 @@ export default function Website() {
           <motion.div {...fadeUp}>
             <p className="font-black uppercase tracking-[0.22em] text-zinc-200">Für Gastronomiepartner</p>
             <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">
-              Automatenaufstellung für Gastronomien in Rheinland-Pfalz, Hessen und Frankfurt.
+              Automatenaufstellung für Gastronomien in Rheinland-Pfalz und Hessen.
             </h2>
             <p className="mt-6 text-lg leading-8 text-zinc-300">
               Sie betreiben eine Bar, Kneipe oder Gastronomie und möchten Ihren Gästen ein zusätzliches Entertainment-Angebot bieten? PG Pro Games GmbH ist Ihr zuverlässiger Ansprechpartner für professionelle Automatenaufstellung.
             </p>
             <p className="mt-5 text-lg leading-8 text-zinc-300">
-              Wir sind Ansprechpartner für Automatenaufstellung in Rheinland-Pfalz, Hessen und dem Raum Frankfurt.
+              Wir sind Ansprechpartner für Automatenaufstellung in Rheinland-Pfalz und Hessen.
             </p>
             <a href="#kontakt" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 transition hover:scale-[1.02] hover:from-white hover:to-zinc-300">
               Kooperation anfragen <Handshake size={18} />
@@ -306,7 +307,7 @@ export default function Website() {
                 "Automatenaufsteller für Hessen, Frankfurt und Rheinland-Pfalz",
                 "Persönliche Betreuung und klare Absprachen",
                 "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
-                "Direkter Ansprechpartner: Erdem Topal",
+                "Direkter Ansprechpartner 24/7 ,
               ].map((item) => (
                 <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:bg-white/[0.08]">
                   <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
@@ -365,69 +366,41 @@ export default function Website() {
                 Sie haben Fragen zu unseren Spielhallen, Standorten, Öffnungszeiten oder zur Automatenaufstellung? Kontaktieren Sie uns gerne.
               </p>
               <div className="mt-8 flex flex-col gap-4 text-zinc-400">
-                <span className="inline-flex items-center gap-2"><UserCheck size={17} /> Erdem Topal</span>
+                <span className="inline-flex items-center gap-2"><UserCheck size={17} /> E. Topal</span>
                 <span className="inline-flex items-center gap-2"><Mail size={17} /> et@pgprogames.de</span>
-                <span className="inline-flex items-center gap-2"><Phone size={17} /> 017622398057</span>
+                <span className="inline-flex items-center gap-2"><Phone size={17} /> +49176 22398057</span>
               </div>
             </motion.div>
 
             <motion.div {...fadeUp} className="rounded-[2rem] border border-white/10 bg-black/30 p-8">
-              <h3 className="text-2xl font-black">Kontaktformular</h3>
-              <p className="mt-3 text-zinc-400">
-                Senden Sie uns Ihre Anfrage direkt über das Formular.
+              <h3 className="text-2xl font-black">Direkter Kontakt</h3>
+              <p className="mt-3 leading-8 text-zinc-400">
+                Für allgemeine Fragen, Kooperationen oder Automatenaufstellungen kontaktieren Sie uns direkt per E-Mail oder telefonisch.
               </p>
 
-              <form action="https://formsubmit.co/info@pgprogames.de" method="POST" className="mt-8 space-y-5">
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_subject" value="Neue Anfrage über pgprogames.de" />
-
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
-                  required
-                />
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="E-Mail"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
-                  required
-                />
-
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="Telefonnummer"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
-                />
-
-                <select
-                  name="type"
-                  className="w-full rounded-xl border border-white/10 bg-[#111111] px-5 py-4 text-white outline-none focus:border-white/40"
+              <div className="mt-8 space-y-4">
+                <a
+                  href="mailto:info@pgprogames.de"
+                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 transition hover:bg-white/[0.08]"
                 >
-                  <option>Allgemeine Anfrage</option>
-                  <option>Automatenaufstellung Gastronomie</option>
-                  <option>Standort Anfrage</option>
-                </select>
+                  <div>
+                    <div className="text-sm text-zinc-500">E-Mail</div>
+                    <div className="mt-1 text-lg font-bold text-white">info@pgprogames.de</div>
+                  </div>
+                  <ArrowRight size={20} className="text-white" />
+                </a>
 
-                <textarea
-                  name="message"
-                  rows="5"
-                  placeholder="Ihre Nachricht"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 text-white outline-none placeholder:text-zinc-500 focus:border-white/40"
-                  required
-                />
-
-                <button
-                  type="submit"
-                  className="w-full rounded-xl bg-gradient-to-r from-white to-zinc-400 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-white/10 transition hover:scale-[1.02] hover:from-white hover:to-zinc-300"
+                <a
+                  href="tel:017622398057"
+                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 transition hover:bg-white/[0.08]"
                 >
-                  Anfrage senden
-                </button>
-              </form>
+                  <div>
+                    <div className="text-sm text-zinc-500">Telefon</div>
+                    <div className="mt-1 text-lg font-bold text-white">017622398057</div>
+                  </div>
+                  <Phone size={20} className="text-white" />
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
