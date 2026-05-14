@@ -307,7 +307,7 @@ export default function Website() {
                 "Automatenaufsteller für Hessen, Frankfurt und Rheinland-Pfalz",
                 "Persönliche Betreuung und klare Absprachen",
                 "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
-                "Direkter Ansprechpartner 24/7 ,
+                "Direkter Ansprechpartner 24/7" ,
               ].map((item) => (
                 <div key={item} className="flex gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition hover:bg-white/[0.08]">
                   <CheckCircle className="mt-1 shrink-0 text-white" size={21} />
