@@ -38,7 +38,7 @@ export default function Website() {
 
     setMeta(
       "description",
-      "Spielhalle Vegas von PG Pro Games GmbH: Moderne Spielhallen in Baumholder und Montabaur sowie professionelle Automatenaufstellung für Gastronomien in Rheinland-Pfalz, Hessen und Frankfurt."
+      "Spielhalle Vegas von PG Pro Games GmbH: Moderne Spielhallen in Baumholder und Montabaur sowie professionelle Automatenaufstellung für Gastronomien in Rheinland-Pfalz und Hessen."
     );
     setMeta(
       "keywords",
@@ -304,7 +304,7 @@ export default function Website() {
             <div className="space-y-4">
               {[
                 "Aufstellung in Bars, Kneipen und Gastronomiebetrieben",
-                "Automatenaufsteller für Hessen, Frankfurt und Rheinland-Pfalz",
+                "Automatenaufsteller für Hessen und Rheinland-Pfalz",
                 "Persönliche Betreuung und klare Absprachen",
                 "Seriöser Betrieb innerhalb gesetzlicher Vorgaben",
                 "Direkter Ansprechpartner 24/7" ,
