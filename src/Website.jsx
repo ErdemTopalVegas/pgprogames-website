@@ -387,6 +387,48 @@ export default function Website() {
       </section>
 
       <section id="spielerschutz" className="bg-[#11100e] px-6 py-24">
+        <div className="mx-auto mb-14 max-w-7xl rounded-[2rem] border border-amber-300/10 bg-gradient-to-r from-amber-300/10 via-black/40 to-red-950/20 p-8 shadow-2xl">
+          <div className="grid gap-8 lg:grid-cols-3">
+            <div>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-black/40 px-4 py-2 text-xs font-black uppercase tracking-wide text-amber-200">
+                Responsible Gaming
+              </div>
+              <h3 className="text-3xl font-black">Verantwortungsbewusstes Spielen</h3>
+              <p className="mt-4 leading-8 text-zinc-300">
+                Glücksspiel dient ausschließlich der Unterhaltung. Wir legen großen Wert auf Spielerschutz, Jugendschutz und einen verantwortungsvollen Umgang mit dem Spiel.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-amber-300/10 bg-black/35 p-6">
+              <h4 className="mb-4 text-lg font-black text-amber-200">Wichtige Hinweise</h4>
+              <ul className="space-y-3 text-zinc-300">
+                <li>• Zutritt ausschließlich ab 18 Jahren</li>
+                <li>• Glücksspiel kann süchtig machen</li>
+                <li>• Spielen Sie bewusst und in Maßen</li>
+                <li>• Setzen Sie persönliche Limits</li>
+                <li>• Glücksspiel ist keine Einkommensquelle</li>
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-amber-300/10 bg-black/35 p-6">
+              <h4 className="mb-4 text-lg font-black text-amber-200">Hilfsangebote</h4>
+              <div className="space-y-4 text-zinc-300">
+                <div>
+                  <div className="font-bold text-white">BZgA</div>
+                  <div>www.check-dein-spiel.de</div>
+                </div>
+                <div>
+                  <div className="font-bold text-white">Telefonberatung</div>
+                  <div>0800 1 37 27 00</div>
+                </div>
+                <div>
+                  <div className="font-bold text-white">Anonyme Hilfe</div>
+                  <div>kostenfrei und vertraulich</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <motion.div {...fadeUp} className={`${premiumCard} p-8`}>
             <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-amber-300/15 bg-amber-300/10">
@@ -491,17 +533,38 @@ export default function Website() {
         <div className="mx-auto max-w-5xl">
           <p className="font-black uppercase tracking-[0.22em] text-amber-300">Datenschutz</p>
           <h2 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">Datenschutzerklärung</h2>
+
           <div className="mt-10 rounded-[2rem] border border-amber-300/10 bg-white/[0.04] p-8 leading-8 text-zinc-300 shadow-2xl">
-            <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Personenbezogene Daten werden auf dieser Website nur im technisch notwendigen Umfang verarbeitet.</p>
-            <p className="mt-6">Beim Besuch dieser Website können durch den Hostinganbieter automatisch technische Informationen wie Browsertyp, Betriebssystem, Uhrzeit des Zugriffs, Referrer-URL oder IP-Adresse in sogenannten Server-Logfiles verarbeitet werden. Diese Verarbeitung dient der technischen Sicherheit und Stabilität der Website.</p>
-            <p className="mt-6">Diese Website wird bei einem externen Hostinganbieter betrieben. Dabei können personenbezogene Daten auf Servern des Hostinganbieters verarbeitet werden.</p>
-            <p className="mt-6">Die Datenübertragung dieser Website erfolgt verschlüsselt über HTTPS.</p>
-            <p className="mt-6">Wenn Sie uns per E-Mail oder telefonisch kontaktieren, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre ausdrückliche Zustimmung.</p>
-            <p className="mt-6">Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten sowie auf Berichtigung, Löschung, Einschränkung der Verarbeitung oder Widerspruch gegen die Verarbeitung.</p>
-            <p className="mt-6">Außerdem besteht ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde.</p>
-            <p className="mt-6">Für externe Links zu fremden Inhalten übernehmen wir trotz sorgfältiger Kontrolle keine Haftung.</p>
-            <p className="mt-6">Verantwortlich für die Datenverarbeitung:<br />PG Pro Games GmbH<br />Aulenbacher Straße 2<br />55774 Baumholder<br />E-Mail: info@pgprogames.de</p>
-            <p className="mt-6">Diese Datenschutzerklärung stellt eine DSGVO-Grundversion dar und kann bei Bedarf erweitert oder angepasst werden.</p>
+            <h3 className="text-2xl font-black text-white">1. Datenschutz auf einen Blick</h3>
+            <p className="mt-5">Der Schutz Ihrer persönlichen Daten ist uns wichtig. Nachfolgend informieren wir Sie darüber, welche Daten beim Besuch dieser Website verarbeitet werden und zu welchem Zweck dies geschieht.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">2. Verantwortlicher</h3>
+            <p className="mt-5">PG Pro Games GmbH<br />Aulenbacher Straße 2<br />55774 Baumholder<br />E-Mail: info@pgprogames.de<br />Telefon: +49 176 22398057</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">3. Hosting</h3>
+            <p className="mt-5">Diese Website wird bei einem externen Hostinganbieter betrieben. Personenbezogene Daten, die auf dieser Website erfasst werden, können auf den Servern des Hostinganbieters gespeichert werden.</p>
+            <p className="mt-5">Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO aufgrund unseres berechtigten Interesses an einer sicheren, schnellen und effizienten Bereitstellung unseres Onlineangebotes.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">4. Server-Logfiles</h3>
+            <p className="mt-5">Beim Besuch der Website werden automatisch technische Informationen erfasst. Dazu gehören insbesondere Browsertyp, Betriebssystem, Referrer-URL, Uhrzeit des Zugriffs und IP-Adresse.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">5. Kontaktaufnahme</h3>
+            <p className="mt-5">Wenn Sie uns per E-Mail oder telefonisch kontaktieren, werden Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">6. SSL- bzw. TLS-Verschlüsselung</h3>
+            <p className="mt-5">Diese Website nutzt aus Sicherheitsgründen und zum Schutz vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">7. Ihre Rechte</h3>
+            <p className="mt-5">Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">8. Beschwerderecht</h3>
+            <p className="mt-5">Im Falle datenschutzrechtlicher Verstöße steht Ihnen ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde zu.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">9. Externe Links</h3>
+            <p className="mt-5">Diese Website kann Links zu externen Webseiten Dritter enthalten. Für die Inhalte dieser externen Seiten übernehmen wir keine Haftung.</p>
+
+            <h3 className="mt-12 text-2xl font-black text-white">10. Hinweis</h3>
+            <p className="mt-5">Diese Datenschutzerklärung stellt eine allgemeine DSGVO-Grundlage dar und sollte bei Nutzung zusätzlicher Dienste wie Google Maps, Analytics oder Social-Media-Plugins erweitert werden.</p>
           </div>
         </div>
       </section>
