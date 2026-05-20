@@ -367,6 +367,13 @@ export default function Page() {
         </header>
 
         <section id="home" className="relative overflow-hidden border-b border-amber-400/10">
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2070&auto=format&fit=crop"
+              alt="Moderne Spielautomaten Atmosphäre"
+              className="h-full w-full object-cover opacity-20 blur-[1px]"
+            />
+          </div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,158,11,0.22),transparent_32%),radial-gradient(circle_at_15%_35%,rgba(185,28,28,0.22),transparent_28%),radial-gradient(circle_at_88%_42%,rgba(251,191,36,0.16),transparent_28%),linear-gradient(135deg,#050403_0%,#150f0a_48%,#030202_100%)]" />
           <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(251,191,36,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,.08)_1px,transparent_1px)] [background-size:58px_58px]" />
           <motion.div animate={{ y: [0, -28, 0], opacity: [0.45, 0.8, 0.45] }} transition={{ duration: 8, repeat: Infinity }} className="absolute -left-24 top-36 h-72 w-72 rounded-full bg-amber-500/20 blur-3xl" />
@@ -430,7 +437,14 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="ueber-uns" className="bg-[#080604] px-6 py-24">
+        <section id="ueber-uns" className="relative overflow-hidden bg-[#080604] px-6 py-24">
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?q=80&w=1974&auto=format&fit=crop"
+              alt="Techniker arbeitet an Spielautomaten"
+              className="h-full w-full object-cover opacity-10 blur-[1px]"
+            />
+          </div>
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
             <motion.div {...fadeUp} className={`${premiumCard} p-8`}>
               <div className="flex min-h-[360px] flex-col items-center justify-center rounded-[1.5rem] border border-amber-300/10 bg-black/50 p-8 text-center">
@@ -477,7 +491,14 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="gastronomie" className="bg-[#080604] px-6 py-24">
+        <section id="gastronomie" className="relative overflow-hidden bg-[#080604] px-6 py-24">
+          <div className="absolute inset-0">
+            <img
+              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop"
+              alt="Bar und Gastronomie Atmosphäre"
+              className="h-full w-full object-cover opacity-10 blur-[1px]"
+            />
+          </div>
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
             <motion.div {...fadeUp}>
               <p className="font-black uppercase tracking-[0.22em] text-amber-300">Für Gastronomiepartner</p>
