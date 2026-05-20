@@ -107,6 +107,8 @@ const localSeo = [
 const premiumCard =
   "rounded-[2rem] border border-amber-400/15 bg-gradient-to-br from-white/[0.08] via-white/[0.035] to-amber-950/10 shadow-2xl shadow-black/40";
 
+const formspreeEndpoint = "https://formspree.io/f/mwvzvjyp";
+
 function ConsentBanner({ mapsConsent, setMapsConsent }) {
   const [visible, setVisible] = React.useState(false);
 
@@ -183,6 +185,121 @@ function MapEmbed({ location, mapsConsent, setMapsConsent }) {
         referrerPolicy="no-referrer-when-downgrade"
       />
     </div>
+  );
+}
+
+function ContactForm() {
+  const [status, setStatus] = React.useState("idle");
+  const [acceptedPrivacy, setAcceptedPrivacy] = React.useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!acceptedPrivacy) {
+      setStatus("privacy");
+      return;
+    }
+
+    setStatus("sending");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+        setAcceptedPrivacy(false);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+      <input type="hidden" name="_subject" value="Neue Anfrage über pgprogames.de" />
+      <input type="text" name="_gotcha" className="hidden" tabIndex="-1" autoComplete="off" />
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div>
+          <label className="mb-2 block text-sm font-bold text-zinc-300">Name</label>
+          <input
+            required
+            name="name"
+            type="text"
+            placeholder="Ihr Name"
+            className="w-full rounded-2xl border border-amber-300/10 bg-black/35 px-5 py-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-amber-300/50"
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-bold text-zinc-300">E-Mail</label>
+          <input
+            required
+            name="email"
+            type="email"
+            placeholder="ihre@email.de"
+            className="w-full rounded-2xl border border-amber-300/10 bg-black/35 px-5 py-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-amber-300/50"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm font-bold text-zinc-300">Telefon optional</label>
+        <input
+          name="telefon"
+          type="tel"
+          placeholder="Ihre Telefonnummer"
+          className="w-full rounded-2xl border border-amber-300/10 bg-black/35 px-5 py-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-amber-300/50"
+        />
+      </div>
+
+      <div>
+        <label className="mb-2 block text-sm font-bold text-zinc-300">Nachricht</label>
+        <textarea
+          required
+          name="nachricht"
+          rows="5"
+          placeholder="Worum geht es?"
+          className="w-full resize-none rounded-2xl border border-amber-300/10 bg-black/35 px-5 py-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-amber-300/50"
+        />
+      </div>
+
+      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-amber-300/10 bg-black/30 p-4 text-sm leading-6 text-zinc-400">
+        <input
+          type="checkbox"
+          checked={acceptedPrivacy}
+          onChange={(event) => setAcceptedPrivacy(event.target.checked)}
+          className="mt-1 h-4 w-4 accent-amber-400"
+        />
+        <span>
+          Ich habe die <a href="#datenschutz" className="font-bold text-amber-300 hover:text-amber-200">Datenschutzerklärung</a> gelesen und stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden.
+        </span>
+      </label>
+
+      {status === "privacy" && <p className="text-sm font-bold text-amber-300">Bitte bestätigen Sie die Datenschutzerklärung.</p>}
+      {status === "success" && <p className="rounded-2xl border border-green-400/20 bg-green-500/10 p-4 text-sm font-bold text-green-300">Ihre Nachricht wurde erfolgreich gesendet.</p>}
+      {status === "error" && <p className="rounded-2xl border border-red-400/20 bg-red-500/10 p-4 text-sm font-bold text-red-300">Die Nachricht konnte nicht gesendet werden. Bitte kontaktieren Sie uns direkt per E-Mail.</p>}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 via-yellow-500 to-amber-600 px-8 py-4 text-sm font-black uppercase tracking-wide text-black shadow-xl shadow-amber-500/20 transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        {status === "sending" ? "Wird gesendet..." : "Nachricht senden"} <ArrowRight size={18} />
+      </button>
+    </form>
   );
 }
 
@@ -432,7 +549,7 @@ export default function Page() {
           <div className={`relative mx-auto max-w-6xl ${premiumCard} p-8 backdrop-blur md:p-12`}>
             <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
               <motion.div {...fadeUp}><div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl border border-amber-300/15 bg-amber-300/10"><Mail className="text-amber-300" size={30} /></div><h2 className="text-4xl font-black tracking-tight">Kontakt</h2><p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">Sie haben Fragen zu unseren Spielhallen, Standorten, Öffnungszeiten oder zur Automatenaufstellung? Kontaktieren Sie uns gerne.</p><div className="mt-8 flex flex-col gap-4 text-zinc-400"><span className="inline-flex items-center gap-2"><UserCheck size={17} className="text-amber-300" /> E. Topal</span><span className="inline-flex items-center gap-2"><Mail size={17} className="text-amber-300" /> et@pgprogames.de</span><span className="inline-flex items-center gap-2"><Phone size={17} className="text-amber-300" /> +49 176 22398057</span></div></motion.div>
-              <motion.div {...fadeUp} className="rounded-[2rem] border border-amber-300/10 bg-black/30 p-8"><h3 className="text-2xl font-black">Direkter Kontakt</h3><p className="mt-3 leading-8 text-zinc-400">Für allgemeine Fragen, Kooperationen oder Automatenaufstellungen kontaktieren Sie uns direkt per E-Mail oder telefonisch.</p><div className="mt-8 space-y-4"><a href="mailto:info@pgprogames.de" className="flex items-center justify-between rounded-2xl border border-amber-300/10 bg-white/[0.04] px-6 py-5 transition hover:bg-amber-300/[0.08]"><div><div className="text-sm text-zinc-500">E-Mail</div><div className="mt-1 text-lg font-bold text-white">info@pgprogames.de</div></div><ArrowRight size={20} className="text-amber-300" /></a><a href="tel:+4917622398057" className="flex items-center justify-between rounded-2xl border border-amber-300/10 bg-white/[0.04] px-6 py-5 transition hover:bg-amber-300/[0.08]"><div><div className="text-sm text-zinc-500">Telefon</div><div className="mt-1 text-lg font-bold text-white">+49 176 22398057</div></div><Phone size={20} className="text-amber-300" /></a></div></motion.div>
+              <motion.div {...fadeUp} className="rounded-[2rem] border border-amber-300/10 bg-black/30 p-8"><h3 className="text-2xl font-black">Kontaktformular</h3><p className="mt-3 leading-8 text-zinc-400">Senden Sie uns Ihre Anfrage direkt über das Formular. Sie erhalten keine automatische Bestätigungs-Mail.</p><ContactForm /><div className="mt-8 space-y-4"><a href="mailto:info@pgprogames.de" className="flex items-center justify-between rounded-2xl border border-amber-300/10 bg-white/[0.04] px-6 py-5 transition hover:bg-amber-300/[0.08]"><div><div className="text-sm text-zinc-500">Alternativ per E-Mail</div><div className="mt-1 text-lg font-bold text-white">info@pgprogames.de</div></div><ArrowRight size={20} className="text-amber-300" /></a><a href="tel:+4917622398057" className="flex items-center justify-between rounded-2xl border border-amber-300/10 bg-white/[0.04] px-6 py-5 transition hover:bg-amber-300/[0.08]"><div><div className="text-sm text-zinc-500">Oder telefonisch</div><div className="mt-1 text-lg font-bold text-white">+49 176 22398057</div></div><Phone size={20} className="text-amber-300" /></a></div></motion.div>
             </div>
           </div>
         </section>
